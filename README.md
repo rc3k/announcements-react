@@ -4,7 +4,7 @@ A frontend application for managing (creating, updating and deleting) site annou
 ## Local installation
 Grab a copy of the project:
 ```
-git clone https://github.com/rc3k/utility-locker-react.git
+git clone https://github.com/rc3k/announcements-react.git
 ```
 
 Install packages:
