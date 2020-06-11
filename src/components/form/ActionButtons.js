@@ -14,7 +14,7 @@ export default ({
   disabled, cancelText, cancelAction, actionText, onClick,
 }) => (
   <div className="action-buttons">
-    <a href="javascript:;" onClick={cancelAction}>{cancelText}</a>
+    <a href="#" onClick={cancelAction}>{cancelText}</a>
     <ActionButton
       disabled={disabled}
       onClick={onClick}

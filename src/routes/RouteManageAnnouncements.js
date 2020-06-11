@@ -3,14 +3,15 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { ManageAnnouncementsContainer } from '../components/ManageAnnouncements';
-import { getAnnouncementsThunk } from '../actionCreators';
+import * as actions from '../actionCreators';
 
 export class RouteManageAnnouncements extends React.Component {
   /**
    * React component lifecycle method
    */
   componentDidMount() {
-    this.props.getAnnouncementsThunk();
+    const { getAnnouncementsThunk } = this.props;
+    getAnnouncementsThunk();
   }
 
   /**
@@ -23,7 +24,9 @@ export class RouteManageAnnouncements extends React.Component {
 }
 
 RouteManageAnnouncements.propTypes = {
-  getAnnouncementsThunk: PropTypes.func,
+  getAnnouncementsThunk: PropTypes.func.isRequired,
 };
 
-export const RouteManageAnnouncementsContainer = connect(() => ({}), { getAnnouncementsThunk })(RouteManageAnnouncements);
+export const RouteManageAnnouncementsContainer = connect(
+  () => ({}), { getAnnouncementsThunk: actions.getAnnouncementsThunk },
+)(RouteManageAnnouncements);

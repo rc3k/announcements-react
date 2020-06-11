@@ -84,7 +84,7 @@ export const ManageAnnouncements = ({
         />
       </div>
       <div className="pull-left">
-        <a onClick={() => resetQueryThunk('')}>{Trans.resetQuery}</a>
+        <a onClick={() => resetQueryThunk('')} role="navigation">{Trans.resetQuery}</a>
       </div>
     </div>
     {/* end header actions */}

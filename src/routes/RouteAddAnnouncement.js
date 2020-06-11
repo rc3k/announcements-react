@@ -3,14 +3,15 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { AnnouncementAddContainer } from '../components/AnnouncementAdd';
-import { addAnnouncement } from '../actionCreators';
+import * as actions from '../actionCreators';
 
 export default class RouteAddAnnouncement extends React.Component {
   /**
    * React component lifecycle method
    */
   componentDidMount() {
-    this.props.addAnnouncement();
+    const { addAnnouncement } = this.props;
+    addAnnouncement();
   }
 
   /**
@@ -23,7 +24,9 @@ export default class RouteAddAnnouncement extends React.Component {
 }
 
 RouteAddAnnouncement.propTypes = {
-  addAnnouncement: PropTypes.func,
+  addAnnouncement: PropTypes.func.isRequired,
 };
 
-export const RouteAddAnnouncementContainer = connect(() => ({}), { addAnnouncement })(RouteAddAnnouncement);
+export const RouteAddAnnouncementContainer = connect(
+  () => ({}), { addAnnouncement: actions.addAnnouncement },
+)(RouteAddAnnouncement);

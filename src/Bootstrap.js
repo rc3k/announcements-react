@@ -2,17 +2,19 @@ import _ from 'lodash';
 
 /**
  * Bootstrapped data supplied when the React app is launched
- * @see templates/announcements/announcements.html
  * @type {object}
  */
-let Bootstrap = {
+const defaultBootstrap = {
   audiencesAndProgrammes: {},
   apiSettings: {},
 };
 
-if (_.has(window, 'Bootstrap')) {
-  Bootstrap = _.cloneDeep(window.Bootstrap);
+const getBootstrap = () => {
+  if (!_.has(window, 'Bootstrap')) {
+    return defaultBootstrap;
+  }
+  const bootstrap = _.cloneDeep(window.Bootstrap);
   delete window.Bootstrap;
+  return bootstrap;
 }
-
-export default Bootstrap;
+export default getBootstrap();

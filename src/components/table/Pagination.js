@@ -4,6 +4,12 @@ import classNames from 'classnames';
 import _ from 'lodash';
 
 /**
+ * a separator to display between non-sequential page items
+ * @returns {XML}
+ */
+const getSeparatorToRender = () => <li className="disabled"><span>...</span></li>;
+
+/**
  * the number of pages, either side of the current page, for which list items will be rendered
  * @type {number}
  */
@@ -11,11 +17,12 @@ const PAGE_RANGE = 2;
 
 export default class Pagination extends React.Component {
   /**
-   * @param {number} page
+   * @param {number} pageNum
    */
-  onPageChange(page) {
-    if (page !== this.props.page && page >= 1 && page <= this.props.pageCount) {
-      this.props.onPageChange(page);
+  onPageChange(pageNum) {
+    const { page, pageCount, onPageChange } = this.props;
+    if (pageNum !== page && pageNum >= 1 && pageNum <= pageCount) {
+      onPageChange(pageNum);
     }
   }
 
@@ -25,29 +32,26 @@ export default class Pagination extends React.Component {
    * @returns {number[]}
    */
   getPageNumbers() {
-    return _.filter(_.range(2, this.props.pageCount), (page) => Math.abs(page - this.props.page) <= PAGE_RANGE);
-  }
-
-  /**
-   * a separator to display between non-sequential page items
-   * @returns {XML}
-   */
-  getSeparatorToRender() {
-    return <li className="disabled"><span>...</span></li>;
+    const { page, pageCount } = this.props;
+    return _.filter(
+      _.range(2, pageCount),
+      (pageNum) => Math.abs(pageNum - page) <= PAGE_RANGE,
+    );
   }
 
   /**
    * a list item for a specific page number
-   * @param {number} page
+   * @param {number} pageNum
    * @returns {XML}
    */
-  getPageListItemToRender(page) {
+  getPageListItemToRender(pageNum) {
+    const { page } = this.props;
     return (
       <li
-        id={`list-item-page-${page}`}
+        id={`list-item-page-${pageNum}`}
         key={page}
-        onClick={_.bind(this.onPageChange, this, page)}
-        className={`list-item-page${this.props.page === page ? ' active' : ''}`}
+        onClick={_.bind(this.onPageChange, this, pageNum)}
+        className={`list-item-page${page === pageNum ? ' active' : ''}`}
       >
         <span>{page}</span>
       </li>
@@ -58,11 +62,12 @@ export default class Pagination extends React.Component {
    * @returns {XML}
    */
   getPreviousPageListItemToRender() {
+    const { page, previousLabel } = this.props;
     return (
       <li
-        onClick={_.bind(this.onPageChange, this, this.props.page - 1)}
-        className={`list-item-previous${this.props.page === 1 ? ' disabled' : ''}`}
-        aria-label={this.props.previousLabel}
+        onClick={_.bind(this.onPageChange, this, page - 1)}
+        className={`list-item-previous${page === 1 ? ' disabled' : ''}`}
+        aria-label={previousLabel}
       >
         <span className="material-icons" aria-hidden="true">&#xE408;</span>
       </li>
@@ -73,11 +78,12 @@ export default class Pagination extends React.Component {
    * @returns {XML}
    */
   getNextPageListItemToRender() {
+    const { page, pageCount, nextLabel } = this.props;
     return (
       <li
-        onClick={_.bind(this.onPageChange, this, this.props.page + 1)}
-        className={`list-item-next${this.props.page === this.props.pageCount ? ' disabled' : ''}`}
-        aria-label={this.props.nextLabel}
+        onClick={_.bind(this.onPageChange, this, page + 1)}
+        className={`list-item-next${page === pageCount ? ' disabled' : ''}`}
+        aria-label={nextLabel}
       >
         <span className="material-icons" aria-hidden="true">&#xE409;</span>
       </li>
@@ -89,19 +95,20 @@ export default class Pagination extends React.Component {
    * @returns {XML}
    */
   render() {
+    const { pageCount } = this.props;
     const pages = this.getPageNumbers();
     const cn = classNames({
-      hide: this.props.pageCount <= 1,
+      hide: pageCount <= 1,
     });
     return (
       <nav className={cn}>
         <ul className="pagination">
           {this.getPreviousPageListItemToRender()}
           {this.getPageListItemToRender(1)}
-          {(_.head(pages) > 2) ? this.getSeparatorToRender() : ''}
+          {(_.head(pages) > 2) ? getSeparatorToRender() : ''}
           {_.map(pages, _.bind(this.getPageListItemToRender, this))}
-          {(_.last(pages) < this.props.pageCount - 1) ? this.getSeparatorToRender() : ''}
-          {(this.props.pageCount > 1) ? this.getPageListItemToRender(this.props.pageCount) : ''}
+          {(_.last(pages) < pageCount - 1) ? getSeparatorToRender() : ''}
+          {(pageCount > 1) ? this.getPageListItemToRender(pageCount) : ''}
           {this.getNextPageListItemToRender()}
         </ul>
       </nav>

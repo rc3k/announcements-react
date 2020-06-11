@@ -26,7 +26,7 @@ const confirmDelete = () => {
  * @param {function} deleteAnnouncementThunk
  * @returns {XML}
  */
-const AnnouncementView = ({
+export const AnnouncementView = ({
   router,
   announcement,
   closeAnnouncementMessage,

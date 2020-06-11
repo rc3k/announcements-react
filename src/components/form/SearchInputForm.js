@@ -4,6 +4,30 @@ import _ from 'lodash';
 
 export default class SearchInputForm extends React.Component {
   /**
+   * invoked N seconds after an "onChange" event,
+   * thereby suggesting the user is no longer typing and the component
+   * has therefore become inactive
+   */
+  onInactive() {
+    const { onInactive } = this.props;
+    if (_.isFunction(onInactive)) {
+      onInactive();
+    }
+  }
+
+  /**
+   * @param {object} event
+   */
+  onChange(event) {
+    const { onChange } = this.props;
+    this.safeClearTimeout();
+    this.timeout = setTimeout(_.bind(this.onInactive, this), 1000);
+    if (_.isFunction(onChange)) {
+      onChange(event.target.value);
+    }
+  }
+
+  /**
    * clears the timeout
    */
   safeClearTimeout() {
@@ -14,43 +38,23 @@ export default class SearchInputForm extends React.Component {
   }
 
   /**
-   * invoked N seconds after an "onChange" event, thereby suggesting the user is no longer typing and the component
-   * has therefore become inactive
-   */
-  onInactive() {
-    if (_.isFunction(this.props.onInactive)) {
-      this.props.onInactive();
-    }
-  }
-
-  /**
-   * @param {object} event
-   */
-  onChange(event) {
-    this.safeClearTimeout();
-    this.timeout = setTimeout(_.bind(this.onInactive, this), 1000);
-    if (_.isFunction(this.props.onChange)) {
-      this.props.onChange(event.target.value);
-    }
-  }
-
-  /**
    * render
    * @returns {XML}
    */
   render() {
+    const { label, value, placeholder } = this.props;
     return (
       <form className="search-input-form">
         <div className="form-group">
-          {this.props.label ? <label htmlFor="search-input">{this.props.label}</label> : null}
+          {label ? <label htmlFor="search-input">{label}</label> : null}
           <input
             id="search-input"
             type="text"
             className="form-control"
             onChange={_.bind(this.onChange, this)}
-            value={this.props.value}
-            placeholder={this.props.placeholder}
-            size={_.max([_.size(this.props.placeholder), 30])}
+            value={value}
+            placeholder={placeholder}
+            size={_.max([_.size(placeholder), 30])}
           />
         </div>
       </form>

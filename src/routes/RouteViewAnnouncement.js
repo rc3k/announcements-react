@@ -3,14 +3,15 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { AnnouncementViewContainer } from '../components/AnnouncementView';
-import { getAnnouncementThunk } from '../actionCreators';
+import * as actions from '../actionCreators';
 
 export class RouteViewAnnouncement extends React.Component {
   /**
    * React component lifecycle method
    */
   componentDidMount() {
-    this.props.getAnnouncementThunk(this.props.match.params.id);
+    const { match, getAnnouncementThunk } = this.props;
+    getAnnouncementThunk(match.params.id);
   }
 
   /**
@@ -23,8 +24,11 @@ export class RouteViewAnnouncement extends React.Component {
 }
 
 RouteViewAnnouncement.propTypes = {
-  getAnnouncementThunk: PropTypes.func,
-  params: PropTypes.object,
+  getAnnouncementThunk: PropTypes.func.isRequired,
+  params: PropTypes.objectOf(PropTypes.string).isRequired,
 };
 
-export const RouteViewAnnouncementContainer = connect(() => ({}), { getAnnouncementThunk })(RouteViewAnnouncement);
+export const RouteViewAnnouncementContainer = connect(
+  () => ({}),
+  { getAnnouncementThunk: actions.getAnnouncementThunk },
+)(RouteViewAnnouncement);

@@ -19,7 +19,7 @@ export default ({ column, order, setSortOrder }) => {
       [`sort-${order}`]: order !== '',
     },
   );
-  const orderOnClick = order === '' ? 'asc' : order === 'asc' ? 'desc' : 'asc';
+  const orderOnClick = order === 'asc' ? 'desc' : 'asc';
   return (
     <th onClick={() => setSortOrder(column, orderOnClick)} key={column}>
       {Trans[`column${toPascalCase(column)}`]}

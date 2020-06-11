@@ -1,3 +1,6 @@
+/* eslint-disable no-undef */
+/* eslint-disable global-require */
+
 import _ from 'lodash';
 import moment from 'moment';
 

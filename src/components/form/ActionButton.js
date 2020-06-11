@@ -7,8 +7,9 @@ import React from 'react';
  * @param {string} text
  * @returns {XML}
  */
-export const ActionButton = ({ disabled, onClick, text }) => (
+const ActionButton = ({ disabled, onClick, text }) => (
   <button
+    type="button"
     disabled={disabled}
     onClick={onClick}
     className="btn btn-default"

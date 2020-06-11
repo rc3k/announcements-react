@@ -38,7 +38,7 @@ export default ({
         id="id_scheduledcourse"
         className="scheduled-course form-control"
         value={scheduledCourse}
-        onChange={(event) => setScheduledCourseThunk(parseInt(event.target.value))}
+        onChange={(event) => setScheduledCourseThunk(parseInt(event.target.value, 10))}
         disabled={disabled}
       >
         <option key="-1" value="-1">{Trans.chooseScheduledCourse}</option>

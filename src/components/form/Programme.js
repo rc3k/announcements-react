@@ -38,7 +38,7 @@ export default ({
         id="id_programme"
         className="programme form-control"
         value={programme}
-        onChange={(event) => setProgrammeThunk(parseInt(event.target.value))}
+        onChange={(event) => setProgrammeThunk(parseInt(event.target.value, 10))}
         disabled={disabled}
       >
         <option key="-1" value="-1">{Trans.chooseProgramme}</option>

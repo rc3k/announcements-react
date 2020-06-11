@@ -158,7 +158,9 @@ export const closeModal = (modalName) => ({
   modalName,
 });
 
-const webAPICallbackWithActionCreator = (dispatch, actionCreator, openMessage) => (error, response) => {
+const webAPICallbackWithActionCreator = (dispatch, actionCreator, openMessage) => (
+  error, response,
+) => {
   if (error) {
     dispatch(openMessage({
       title: Trans.didNotWork,
@@ -171,7 +173,9 @@ const webAPICallbackWithActionCreator = (dispatch, actionCreator, openMessage) =
   }
 };
 
-const webAPICallbackWithSuccessMessage = (dispatch, openMessage, cb, apiSettings) => (error, response) => {
+const webAPICallbackWithSuccessMessage = (dispatch, openMessage, cb, apiSettings) => (
+  error, response,
+) => {
   if (error) {
     let message = Trans.tryAgainLater;
     if (response) {
@@ -220,10 +224,13 @@ export const setMasterCourseThunk = (masterCourseId) => (dispatch, getState) => 
 export const setScheduledCourseThunk = (scheduledCourseId) => (dispatch, getState) => {
   dispatch(setScheduledCourse(scheduledCourseId));
   if (_.has(getState(), `scheduledCourses.${scheduledCourseId}`)) {
-    const scheduledCourseGroupIds = getState().scheduledCourses[scheduledCourseId].scheduled_course_group_ids;
+    const scheduledCourses = getState().scheduledCourses[scheduledCourseId];
+    const scheduledCourseGroupIds = scheduledCourses.scheduled_course_group_ids;
     getScheduledCourseGroupsFromIds(
       scheduledCourseGroupIds,
-      webAPICallbackWithActionCreator(dispatch, receiveScheduledCourseGroups, openAnnouncementMessage),
+      webAPICallbackWithActionCreator(
+        dispatch, receiveScheduledCourseGroups, openAnnouncementMessage,
+      ),
     );
   } else {
     dispatch(receiveScheduledCourseGroups({}));
@@ -305,7 +312,9 @@ export const deleteAnnouncementThunk = (push) => (dispatch, getState) => {
 export const getAnnouncementsThunk = () => (dispatch, getState) => {
   getAnnouncements(
     getState().announcementsQuery,
-    webAPICallbackWithActionCreator(dispatch, receiveAnnouncementsList, openAnnouncementsListMessage),
+    webAPICallbackWithActionCreator(
+      dispatch, receiveAnnouncementsList, openAnnouncementsListMessage,
+    ),
   );
 };
 

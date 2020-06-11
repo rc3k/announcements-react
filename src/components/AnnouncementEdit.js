@@ -56,7 +56,7 @@ const confirmDelete = (openModal) => {
  * @param {function} deleteAnnouncementThunk
  * @returns {XML}
  */
-const AnnouncementEdit = (
+export const AnnouncementEdit = (
   {
     history,
     announcement,
@@ -107,7 +107,9 @@ const AnnouncementEdit = (
               actionText={Trans.saveChanges}
               onClick={() => openModal('confirm-update')}
               cancelText={Trans.cancel}
-              cancelAction={() => confirmCancel(announcement, announcementCache, history, openModal)}
+              cancelAction={() => confirmCancel(
+                announcement, announcementCache, history, openModal,
+              )}
             />
           </div>
         </div>

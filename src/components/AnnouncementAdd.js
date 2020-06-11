@@ -18,7 +18,7 @@ import { createOrUpdateDisabled } from '../lib';
  * @param {function} postAnnouncementThunk
  * @returns {XML}
  */
-const AnnouncementAdd = ({
+export const AnnouncementAdd = ({
   announcement,
   closeAnnouncementMessage,
   postAnnouncementThunk,

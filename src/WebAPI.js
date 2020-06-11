@@ -5,6 +5,36 @@ import Cookies from 'cookies-js';
 const apiUrl = (path) => `${process.env.REACT_APP_API_URL}/${path}`
 
 /**
+ * creates an announcement object for submission to the API
+ * @param {object} announcement
+ * @returns {object}
+ */
+const getAnnouncementForAPISubmission = (announcement) => {
+  const a = {
+    subject: announcement.subject,
+    body: announcement.body,
+    audience: announcement.audience,
+    is_urgent: announcement.isUrgent,
+  };
+  if (announcement.programme > 0) {
+    a.programme = announcement.programme;
+  }
+  if (announcement.scheduledCourse > 0) {
+    a.scheduled_course = announcement.scheduledCourse;
+  }
+  if (announcement.scheduledCourseGroup > 0) {
+    a.group = announcement.scheduledCourseGroup;
+  }
+  if (_.isObject(announcement.visibleFrom)) {
+    a.visible_from = announcement.visibleFrom.toISOString();
+  }
+  if (_.isObject(announcement.visibleTo)) {
+    a.visible_to = announcement.visibleTo.toISOString();
+  }
+  return a;
+};
+
+/**
  * gets master courses from ids
  * @param {number[]} masterCourses
  * @param {function} cb
@@ -113,33 +143,3 @@ export function deleteAnnouncement(id, cb) {
     .accept('application/json')
     .end(cb);
 }
-
-/**
- * creates an announcement object for submission to the API
- * @param {object} announcement
- * @returns {object}
- */
-const getAnnouncementForAPISubmission = (announcement) => {
-  const a = {
-    subject: announcement.subject,
-    body: announcement.body,
-    audience: announcement.audience,
-    is_urgent: announcement.isUrgent,
-  };
-  if (announcement.programme > 0) {
-    a.programme = announcement.programme;
-  }
-  if (announcement.scheduledCourse > 0) {
-    a.scheduled_course = announcement.scheduledCourse;
-  }
-  if (announcement.scheduledCourseGroup > 0) {
-    a.group = announcement.scheduledCourseGroup;
-  }
-  if (_.isObject(announcement.visibleFrom)) {
-    a.visible_from = announcement.visibleFrom.toISOString();
-  }
-  if (_.isObject(announcement.visibleTo)) {
-    a.visible_to = announcement.visibleTo.toISOString();
-  }
-  return a;
-};

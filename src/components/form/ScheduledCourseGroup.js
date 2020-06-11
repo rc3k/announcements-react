@@ -38,7 +38,7 @@ export default ({
         id="id_group"
         className="scheduled-course-group form-control"
         value={scheduledCourseGroup}
-        onChange={(event) => setScheduledCourseGroup(parseInt(event.target.value))}
+        onChange={(event) => setScheduledCourseGroup(parseInt(event.target.value, 10))}
         disabled={disabled}
       >
         <option key="-1" value="-1">{Trans.chooseScheduledCourseGroup}</option>

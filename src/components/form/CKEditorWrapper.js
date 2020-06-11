@@ -27,20 +27,20 @@ export default class CKEditorWrapper extends React.Component {
   /**
    * React component lifecycle method
    */
-  componentWillReceiveProps({ value }) {
-    if (_.has(this, 'editor') && value !== this.editor.getData()) {
-      this.invokeOnChange = false;
-      this.editor.setData(value);
-      this.invokeOnChange = true;
+  componentWillUnmount() {
+    if (_.has(this, 'editor')) {
+      this.editor.destroy();
     }
   }
 
   /**
    * React component lifecycle method
    */
-  componentWillUnmount() {
-    if (_.has(this, 'editor')) {
-      this.editor.destroy();
+  componentDidReceiveProps({ value }) {
+    if (_.has(this, 'editor') && value !== this.editor.getData()) {
+      this.invokeOnChange = false;
+      this.editor.setData(value);
+      this.invokeOnChange = true;
     }
   }
 
