@@ -20,6 +20,8 @@ export default {
 
   delete: ('Delete'),
 
+  characters: (n) => `${n} character${n > 1 ? 's' : ''}`,
+
   saveChanges: ('Save changes'),
 
   announcementManagement: ('Announcement management'),
