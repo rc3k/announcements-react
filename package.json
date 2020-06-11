@@ -22,12 +22,28 @@
     "react-scripts": "3.4.1",
     "redux": "^4.0.5",
     "redux-thunk": "^2.2.0",
-    "superagent": "^5.2.2"
+    "superagent": "^5.2.2",
+    "sinon": "^9.0.2"
+  },
+  "devDependencies": {
+    "karma": "4.4.1",
+    "karma-chrome-launcher": "3.1.0",
+    "karma-firefox-launcher": "1.3.0",
+    "karma-jasmine": "3.1.1",
+    "karma-junit-reporter": "2.0.1",
+    "karma-phantomjs-launcher": "1.0.4",
+    "karma-sinon": "1.0.5",
+    "karma-spec-reporter": "0.0.32",
+    "karma-webpack": "4.0.2",
+    "karma-es6-shim": "1.0.0",
+    "jasmine": "^3.5.0",
+    "@babel/node": "^7.10.1",
+    "@babel/register": "^7.10.1"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "karma start --browsers PhantomJS,Chrome,Firefox --reporters spec",
     "eject": "react-scripts eject",
     "lint": "eslint src"
   },

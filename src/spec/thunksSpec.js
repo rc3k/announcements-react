@@ -2,6 +2,7 @@
 /* eslint-disable global-require */
 
 import _ from 'lodash';
+import sinon from 'sinon';
 
 describe('thunks', () => {
   let dispatchSpy;

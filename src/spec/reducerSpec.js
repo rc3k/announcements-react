@@ -3,6 +3,7 @@
 
 import _ from 'lodash';
 import moment from 'moment';
+import sinon from 'sinon';
 
 import reducer from '../reducers';
 
@@ -65,6 +66,7 @@ describe('"announcements" reducer (in the "announcements" app)', () => {
         per_page: 20,
       },
       xhrInProgress: false,
+      modals: {},
     });
   });
 

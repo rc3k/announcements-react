@@ -83,7 +83,7 @@ export function getScheduledCourseGroupsFromIds(scheduledCourseGroups, cb) {
  */
 export function postAnnouncement(announcement, cb) {
   request.post(apiUrl('api/announcements/add/'))
-    .set('X-CSRFToken', Cookies.get('csrftoken'))
+    .set('X-CSRFToken', Cookies.get('csrftoken') || '')
     .type('application/json')
     .accept('application/json')
     .send(getAnnouncementForAPISubmission(announcement))
